@@ -1,5 +1,5 @@
 import 'react-native-get-random-values'; // Required for UUID generation
-import { v4 as uuidv4 } from 'uuid';
+import * as Crypto from 'expo-crypto';
 import {
   RTCPeerConnection,
   RTCIceCandidate,
@@ -23,7 +23,7 @@ const PEER_CONNECTION_CONFIG = {
 class P2pService {
   constructor() {
     this.collectionId = null; // Unique ID for the task collection
-    this.peerId = uuidv4(); // Generate a unique ID for this peer
+    this.peerId = Crypto.randomUUID(); // Generate a unique ID for this peer
     this.connectedPeers = new Map(); // Map of peerId -> { peerConnection, dataChannel }
     this.onTextReceived = (callback) => {};
     this.ws = null; // WebSocket connection to signaling server

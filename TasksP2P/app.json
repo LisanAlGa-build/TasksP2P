@@ -8,10 +8,6 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "plugins": [
-      [
-        "expo-crypto",
-        {}
-      ]
     ],
     "splash": {
       "image": "./app/assets/splash-icon.png",
