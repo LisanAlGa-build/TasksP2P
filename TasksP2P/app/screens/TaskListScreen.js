@@ -4,12 +4,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Task from '../models/Task';
 import TaskItem from '../components/TaskItem';
 import P2pService from '../services/P2pService';
+import { useNavigation } from '@react-navigation/native';
 
 const TASKS_KEY = 'tasks';
 
 const TaskListScreen = () => {
   const [tasks, setTasks] = useState([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
+  const navigation = useNavigation();
 
   useEffect(() => {
     loadTasks();
@@ -143,6 +145,20 @@ const TaskListScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.p2pButtonsContainer}>
+        <Button
+          title="Create New Collection"
+          onPress={() => {
+            const newCollectionId = P2pService.generateCollectionId();
+            console.log('New Collection ID:', newCollectionId);
+            navigation.navigate('QrCodeDisplay');
+          }}
+        />
+        <Button
+          title="Join Collection"
+          onPress={() => navigation.navigate('QrScanner')}
+        />
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -167,6 +183,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 50,
     paddingHorizontal: 20,
+  },
+  p2pButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
   },
   inputContainer: {
     flexDirection: 'row',
